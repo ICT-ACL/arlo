@@ -1,2 +1,3 @@
-# arlo
-optimization codes in C++ of SKA-ARL.
+# Optimization codes of SKA-ARL
+
+- translate kernel codes from python to c++ and optimize them.
