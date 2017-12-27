@@ -1,3 +1,8 @@
+// image/cleaners.h
+// cleaners
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
+
 #ifndef CLEANERS_H
 #define CLEANERS_H
 

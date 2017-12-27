@@ -1,3 +1,8 @@
+// fourier_transforms/fft_support.h
+// fft functions
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
+
 #ifndef FFT_SUPPORT_H
 #define FFT_SUPPORT_H
 

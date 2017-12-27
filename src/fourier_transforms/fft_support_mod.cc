@@ -1,3 +1,8 @@
+// fourier_transforms/fft_support_mod.cc                                    
+// fft functions python module
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
+
 #include <Python.h>
 #include <ndarrayobject.h>
 #include <ndarraytypes.h>

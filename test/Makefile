@@ -1,3 +1,7 @@
+# test/Makefile
+# Author: You Haihang, Yang Runkai, Liu Tao,
+# Applied Computing Lab, ICT, CAS 
+
 .PHONY: clean all
 
 include make.inc

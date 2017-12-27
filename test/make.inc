@@ -1,3 +1,6 @@
+# test/make.inc
+# Author: You Haihang, Yang Runkai, Liu Tao,
+# Applied Computing Lab, ICT, CAS 
 
 BLASDIR=$(SOFTWARE_DIR)/cblas-3.8.0
 

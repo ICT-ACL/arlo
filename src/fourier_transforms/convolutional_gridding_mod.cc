@@ -1,3 +1,7 @@
+// fourier_transforms/convolutional_gridding_mod.cc
+// convolutional gridding & degridding python module
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
 #include <Python.h>
 #include <ndarrayobject.h>
 #include <ndarraytypes.h>

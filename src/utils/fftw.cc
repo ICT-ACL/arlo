@@ -1,3 +1,8 @@
+// utils/fftw.cc
+// fftw utils
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
+
 #include <map>
 #include <string.h>
 #include "fftw.h"                         

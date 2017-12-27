@@ -1,3 +1,8 @@
+# fourier_transforms/Makefile.gridding
+# makefile of convolutional gridding                                      
+# Author: You Haihang, Yang Runkai, Liu Tao,
+# Applied Computing Lab, ICT, CAS 
+
 .PHONY: clean all
 
 PYTHON_DIR=/home/yangrunkai/myinstall/.pyenv/versions/anaconda3-4.4.0

@@ -1,3 +1,8 @@
+// fourier_transforms/convolutional_gridding.cc
+// convolutional gridding & degridding codes
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS
+
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>

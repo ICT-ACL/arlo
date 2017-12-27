@@ -1,3 +1,8 @@
+// imaging/params.h
+// params
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
+
 #ifndef PARAMS_H
 #define PARAMS_H
 

@@ -1,3 +1,8 @@
+// test/test_clean.cc
+// tests of cleaners
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

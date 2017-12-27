@@ -1,3 +1,8 @@
+// imaging/params.cc
+// params
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
+
 #include <map>
 #include <set>
 #include <stdlib.h>

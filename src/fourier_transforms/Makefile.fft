@@ -1,3 +1,8 @@
+# fourier_transforms/Makefile.fft
+# makefile of fft support
+# Author: You Haihang, Yang Runkai, Liu Tao,
+# Applied Computing Lab, ICT, CAS 
+
 .PHONY: clean all
 
 PYTHON_DIR=/media/chris/data/downloads/linux/pyenv/.pyenv/versions/anaconda3-4.4.0

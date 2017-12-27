@@ -1,3 +1,7 @@
+// utils/fftw.h
+// fftw utils
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
 #ifndef FFTW_H
 #define FFTW_H
 

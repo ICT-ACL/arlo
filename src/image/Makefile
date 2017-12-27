@@ -1,3 +1,8 @@
+# fourier_transforms/convolutional_gridding.cc
+# convolutional gridding & degridding codes
+# Author: You Haihang, Yang Runkai, Liu Tao,
+# Applied Computing Lab, ICT, CAS 
+
 .PHONY: clean all
 
 PYTHON_DIR=/home/yangrunkai/myinstall/.pyenv/versions/anaconda3-4.4.0

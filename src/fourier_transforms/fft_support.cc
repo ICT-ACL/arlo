@@ -1,3 +1,7 @@
+// fourier_transforms/fft_support.cc
+// fft functions
+// Author: You Haihang, Yang Runkai, Liu Tao,
+// Applied Computing Lab, ICT, CAS 
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
