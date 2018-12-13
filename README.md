@@ -6,4 +6,4 @@ synthesis imaging based on Numpy. ARLO is an optimized version of ARL by
 converting computational intensive kernels from python to c++ and applying 
 further optimization.
 
-- Applied Computing Lab., ICT, CAS 
+- Applied Computing Lab., ICT, CAS
