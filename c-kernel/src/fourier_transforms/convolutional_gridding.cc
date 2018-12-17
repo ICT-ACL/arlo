@@ -203,7 +203,7 @@ void convolutional_grid(complex_t *uvgrid, const int *gshape,
 		viswt[i] = vis[i] * visweights[i];
 	}
 
-	memset(uvgrid, 0, sizeof(complex_t) * inchan * inpol * ny * nx);
+//	memset(uvgrid, 0, sizeof(complex_t) * inchan * inpol * ny * nx);
 	memset(sumwt, 0, sizeof(double) * inchan * inpol);
 
 	// gridding

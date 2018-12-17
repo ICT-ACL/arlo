@@ -2,13 +2,17 @@
 # Author: You Haihang, Yang Runkai, Liu Tao,
 # Applied Computing Lab, ICT, CAS 
 
-BLASDIR=$(SOFTWARE_DIR)/cblas-3.8.0
+PYTHON_DIR=/usr/local
+
+BLASDIR=..
 
 INCLUDE_DIR=../src
 LIB_DIRS=-L../lib \
 		-L$(BLASDIR)/lib
 
-INCLUDES=-I$(INCLUDE_DIR)/utils \
+INCLUDES=-I$(PYTHON_DIR)/include/python3.5m \
+         -I$(PYTHON_DIR)/lib/python3.5/dist-packages/numpy/core/include/numpy \
+         -I$(INCLUDE_DIR)/utils \
          -I$(INCLUDE_DIR)/fourier_transforms \
          -I$(INCLUDE_DIR)/imaging \
          -I$(INCLUDE_DIR)/image \
