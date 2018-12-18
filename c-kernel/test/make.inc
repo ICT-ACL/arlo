@@ -16,7 +16,8 @@ INCLUDES=-I$(PYTHON_DIR)/include/python3.5m \
          -I$(INCLUDE_DIR)/fourier_transforms \
          -I$(INCLUDE_DIR)/imaging \
          -I$(INCLUDE_DIR)/image \
-         -I$(BLASDIR)/include
+         -I$(BLASDIR)/include \
+         -I.
 
 CC=g++
 CFLAGS=-O3 $(INCLUDES) -fopenmp -DDEBUG

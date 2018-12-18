@@ -6,43 +6,7 @@ import numpy as np
 import time
 
 from arl.fourier_transforms.convolutional_gridding import convolutional_grid, convolutional_degrid
-
-
-def load_line(line):
-    items = [int(item) for item in line.split(' ')[2:]]
-    return items
-
-
-def load_shape(shape_filepath):
-    with open(shape_filepath) as fr:
-        vshape = load_line(fr.readline())
-        gshape = load_line(fr.readline())
-        kshape = load_line(fr.readline())
-        return vshape, gshape, kshape
-
-
-def create_random_data(shape, low, high, dtype):
-    if dtype == 'int':
-        data = np.random.randint(low, high, shape)
-    elif dtype == 'float':
-        data = np.random.rand(*shape) * (high - low) + low
-    elif dtype == 'complex':
-        real = np.random.rand(*shape) * (high - low) + low
-        imag = np.random.rand(*shape) * (high - low) + low
-        data = real + imag * 1j
-    return data
-
-
-def store_data(filepath, arr):
-    dtype = str(arr.dtype)
-    if dtype.startswith('int'):
-        dtype = 'int32'
-    elif dtype.startswith('float'):
-        dtype = 'float64'
-    elif dtype.startswith('complex'):
-        dtype = 'complex128'
-    arr.ravel().astype(dtype).tofile(filepath)
-
+from utils import *
 
 def test_degrid(data_dir):
     vshape, gshape, kshape = load_shape(os.path.join(data_dir, 'shapes.txt'))
@@ -65,9 +29,10 @@ def test_degrid(data_dir):
     start = time.time()
     vis = convolutional_degrid(kernel_list, vshape, uvgrid, vuvwmap, vfrequencymap)
     stop = time.time()
-    print('Original Time:  {:.2f}s'.format(stop -start))
 
     store_data(os.path.join(data_dir, 'vis.dat'), vis)
+
+    print('Original Time:  {:.2f}s'.format(stop -start))
 
 
 def test_grid(data_dir):
@@ -96,10 +61,11 @@ def test_grid(data_dir):
     start = time.time()
     uvgrid, sumwt = convolutional_grid(kernel_list, uvgrid, vis, visweights, vuvwmap, vfrequencymap)
     stop = time.time()
-    print('Original Time:  {:.2f}s'.format(stop - start))
 
     store_data(os.path.join(data_dir, 'uvgrid_after.dat'), uvgrid)
     store_data(os.path.join(data_dir, 'sumwt.dat'), sumwt)
+
+    print('Original Time:  {:.2f}s'.format(stop - start))
 
 
 if __name__ == '__main__':
