@@ -1,27 +1,37 @@
-# fourier_transforms/Makefile.fft
-# makefile of fft support
+# fourier_transforms/Makefile.gridding
+# makefile of convolutional gridding
 # Author: You Haihang, Yang Runkai, Liu Tao,
-# Applied Computing Lab, ICT, CAS 
+# Applied Computing Lab, ICT, CAS
 
 .PHONY: clean all
 
-PYTHON_DIR=/media/chris/data/downloads/linux/pyenv/.pyenv/versions/anaconda3-4.4.0
+PYTHON_DIR=/usr/local
+INCLUDE_DIR=..
+SRC_DIR=../../src
+LIB_DIR=../../lib
 
 CC=g++
 
-INCLUDES=-I$(PYTHON_DIR)/include/python3.6m \
-		 -I$(PYTHON_DIR)/lib/python3.6/site-packages/numpy/core/include/numpy \
-		 -I.
-LIBS=-L$(PYTHON_DIR)/lib
+INCLUDES=-I$(PYTHON_DIR)/include/python3.5m \
+		 -I$(PYTHON_DIR)/lib/python3.5/dist-packages/numpy/core/include/numpy \
+		 -I$(INCLUDE_DIR)/utils \
+         -I$(INCLUDE_DIR)/fourier_transforms \
+         -I$(INCLUDE_DIR)/imaging \
+         -I$(INCLUDE_DIR)/image
+
+LIBS=-L$(PYTHON_DIR)/lib -L$(LIB_DIR)
 
 CFLAGS=-O3 -pthread -fPIC $(INCLUDES)
-LDFLAGS=-shared $(LIBS)
-LDLIBS=-lpython3.6m libfftw3.a
 
-SRCS=fftw.cc \
-	 fft_support.cc \
-	 fft_support_mod.cc
-	 
+LDFLAGS=-shared $(LIBS)
+
+LDLIBS=-lpython3.5m -lfftw3 #$(LIB_DIR)/libfftw3.a
+
+SRCS=$(SRC_DIR)/utils/fftw.cc \
+	 $(SRC_DIR)/fourier_transforms/fft_support.cc \
+	 $(SRC_DIR)/fourier_transforms/fft_support_mod.cc
+
+
 OBJS=$(SRCS:.cc=.o)
 TARGET=fft_support_mod.so
 
@@ -37,3 +47,4 @@ $(TARGET): $(OBJS)
 
 clean:
 	rm -f *.o *.so
+
