@@ -36,9 +36,11 @@ void fft(complex_t *af, complex_t* a, const int *shape, const int n_shapes) {
 
     else {
         int m = shape[0], n = shape[1];
+        complex_t *tmp = (complex_t*)malloc(sizeof(complex_t) * m * n);
         ifftshift(af, a, m, n);
-        fftw_fft2(af, af, m, n);
-        fftshift(af, af, m, n);
+        fftw_fft2(tmp, af, m, n);
+        fftshift(af, tmp, m, n);
+        free(tmp);
     }
 }
 
@@ -70,9 +72,16 @@ void ifft(complex_t *a, complex_t* af, const int *shape, const int n_shapes) {
 
     else {
         int m = shape[0], n = shape[1];
+        complex_t *tmp = (complex_t*)malloc(sizeof(complex_t) * m * n);
         ifftshift(a, af, m, n);
-        fftw_ifft2(a, a, m, n);
-        fftshift(a, a, m, n);
+        fftw_ifft2(tmp, a, m, n);
+        fftshift(a, tmp, m, n);
+
+        for (int i = 0; i < m * n; i++) {
+            a[i] /= (m * n);
+        }
+
+        free(tmp);
     }
 }
 

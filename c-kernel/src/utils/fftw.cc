@@ -1,11 +1,12 @@
 // utils/fftw.cc
 // fftw utils
 // Author: You Haihang, Yang Runkai, Liu Tao,
-// Applied Computing Lab, ICT, CAS 
+// Applied Computing Lab, ICT, CAS
 
 #include <map>
 #include <string.h>
-#include "fftw.h"                         
+#include <stdio.h>
+#include "fftw.h"
 
 std::map<std::pair<int,int>, fftw_plan> fftw_plans;
 
@@ -34,7 +35,7 @@ void fftw_fft2(complex_t *out, complex_t *in, const int m, const int n, int back
             complex_t *in      = (complex_t *)fftw_malloc(sizeof(*in)      * m * n);
             complex_t *out_tmp = (complex_t *)fftw_malloc(sizeof(*out_tmp) * m * n);
 
-            p = fftw_plan_dft_2d(m, n, in, out_tmp, 
+            p = fftw_plan_dft_2d(m, n, in, out_tmp,
                                  backwards ? FFTW_BACKWARD:FFTW_FORWARD,
                                  FFTW_ESTIMATE);
 
@@ -43,9 +44,9 @@ void fftw_fft2(complex_t *out, complex_t *in, const int m, const int n, int back
             fftw_free(in);
             fftw_free(out_tmp);
         }
-    }   
+    }
 
-    p = fftw_plan_dft_2d(m, n, in, out, 
+    p = fftw_plan_dft_2d(m, n, in, out,
                          backwards ? FFTW_BACKWARD:FFTW_FORWARD,
                          FFTW_ESTIMATE);
 
