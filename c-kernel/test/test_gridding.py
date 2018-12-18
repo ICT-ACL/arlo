@@ -29,10 +29,9 @@ def test_degrid(data_dir):
     start = time.time()
     vis = convolutional_degrid(kernel_list, vshape, uvgrid, vuvwmap, vfrequencymap)
     stop = time.time()
+    print('Original Time:  {:.2f}s'.format(stop -start))
 
     store_data(os.path.join(data_dir, 'vis.dat'), vis)
-
-    print('Original Time:  {:.2f}s'.format(stop -start))
 
 
 def test_grid(data_dir):
@@ -61,16 +60,16 @@ def test_grid(data_dir):
     start = time.time()
     uvgrid, sumwt = convolutional_grid(kernel_list, uvgrid, vis, visweights, vuvwmap, vfrequencymap)
     stop = time.time()
+    print('Original Time:  {:.2f}s'.format(stop - start))
 
     store_data(os.path.join(data_dir, 'uvgrid_after.dat'), uvgrid)
     store_data(os.path.join(data_dir, 'sumwt.dat'), sumwt)
-
-    print('Original Time:  {:.2f}s'.format(stop - start))
 
 
 if __name__ == '__main__':
     np.random.seed(0)
     data_dir = './data/'
+
     if sys.argv[1] == 'degrid':
         test_degrid(data_dir)
     elif sys.argv[1] == 'grid':

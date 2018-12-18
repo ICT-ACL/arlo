@@ -19,10 +19,9 @@ def test_params(data_dir, nrows):
     start = time.time()
     vmap = np.array(get_rowmap(frequency, ufrequency))
     stop = time.time()
+    print('Original Time:  {:.2f}s'.format(stop - start))
 
     store_data(os.path.join(data_dir, 'vmap.dat'), vmap)
-
-    print('Original Time:  {:.2f}s'.format(stop - start))
 
 
 if __name__ == '__main__':
