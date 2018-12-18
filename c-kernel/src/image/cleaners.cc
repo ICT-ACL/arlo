@@ -579,15 +579,10 @@ void find_global_optimum(int &mscale, int &mx, int &my, double *mval,
                         double *smresidual, double *windowstack, 
                         const int nmoments, const int nscales, 
                         const int nx, const int ny,
-                        const char *findpeak,
-                        double &time1, double &time2, double &time3) {
+                        const char *findpeak) {
 
-    double time;
     double *smpsol = (double*)malloc(sizeof(double) * nscales * nmoments * nx * ny);
-    time = -omp_get_wtime();
     calculate_scale_moment_principal_solution(smpsol, smresidual, ihsmmpsf, nmoments, nscales, nx, ny);
-    time += omp_get_wtime();
-    time1 += time;
 
     if (strcmp(findpeak, "Algorithm1") == 0) {
         find_optimum_scale_zero_moment(mx, my, mscale, smpsol, windowstack, nmoments, nscales, nx, ny);
@@ -635,18 +630,12 @@ void find_global_optimum(int &mscale, int &mx, int &my, double *mval,
     else {
         double *prod_sol_res = (double*)malloc(sizeof(double) * nscales * nmoments * nx * ny);
 
-        time = -omp_get_wtime();
         # pragma omp parallel for
         for (int i = 0; i < nscales * nmoments * nx * ny; i++) {
             prod_sol_res[i] = smpsol[i] * smresidual[i];
         }
-        time += omp_get_wtime();
-        time2 += time;
-
-        time = -omp_get_wtime();
+        
         find_optimum_scale_zero_moment(mx, my, mscale, prod_sol_res, windowstack, nmoments, nscales, nx, ny);
-        time += omp_get_wtime();
-        time3 += time;
 
         free(prod_sol_res);
     }
@@ -833,21 +822,10 @@ void msmfsclean_kernel(double *m_model, double *residual,
     int ldirty0_shape[] = {nx, ny};
     int psf0_shape[] = {nx, ny};
 
-    double time1 = 0, time2 = 0, time3 = 0, time4 = 0, time;
-    double timea = 0, timeb = 0, timec = 0;
     for (int i = 0; i < niter; i++) {
-#ifdef DEBUG
-        if (i % 100 == 0) {
-            printf("iter = %d\n", i);
-        }
-#endif
-        time = -omp_get_wtime();
         find_global_optimum(mscale, mx, my, mval, 
                             hsmmpsf, ihsmmpsf, smresidual, windowstack, 
-                            nmoments, nscales, nx, ny, findpeak,
-                            timea, timeb, timec);
-        time += omp_get_wtime();
-        time1 += time;
+                            nmoments, nscales, nx, ny, findpeak);
 
         double mval_max = mval[0];
         for (int v = 1; v < nmoments; v++) {
@@ -860,30 +838,17 @@ void msmfsclean_kernel(double *m_model, double *residual,
         overlap_indices(lhs, rhs, ldirty, psf, mx, my, 
                         ldirty0_shape, psf0_shape);
 
-        time = -omp_get_wtime();
         update_moment_model(m_model, scalestack, lhs, rhs, gain, mscale, mval, 
                             nmoments, nscales, nx, ny);
-        time += omp_get_wtime();
-        time3 += time;
 
-        time = -omp_get_wtime();
         update_scale_moment_residual(smresidual, ssmmpsf, lhs, rhs, gain, mscale, mval, 
                                      nmoments, nscales, nx, ny);
-        time += omp_get_wtime();
-        time4 += time;
     }
 
     # pragma omp parallel for
     for (int i = 0; i < nmoments * nx * ny; i++) {
         residual[i] = pmax * smresidual[i];
     }
-
-    printf("time find_global_optimum   : %.4lf\n", time1);
-    printf("-- time calculate_solution : %.4lf\n", timea);
-    printf("-- time smpsol * smresidual: %.4lf\n", timeb);
-    printf("-- time find_zero_moment   : %.4lf\n", timec);
-    printf("time update_model          : %.4lf\n", time3);
-    printf("time update_residual       : %.4lf\n", time4);
 
     free(mval);
 }

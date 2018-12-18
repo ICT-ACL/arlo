@@ -5,15 +5,15 @@
 
 .PHONY: clean all
 
-PYTHON_DIR=/home/yangrunkai/myinstall/.pyenv/versions/anaconda3-4.4.0
-INCLUDE_DIR=../../src
+PYTHON_DIR=/usr/local
+INCLUDE_DIR=..
 SRC_DIR=../../src
 LIB_DIR=../../lib
 
 CC=g++
 
-INCLUDES=-I$(PYTHON_DIR)/include/python3.6m \
-		 -I$(PYTHON_DIR)/lib/python3.6/site-packages/numpy/core/include/numpy \
+INCLUDES=-I$(PYTHON_DIR)/include/python3.5m \
+		 -I$(PYTHON_DIR)/lib/python3.5/dist-packages/numpy/core/include/numpy \
 		 -I$(INCLUDE_DIR)/utils \
          -I$(INCLUDE_DIR)/fourier_transforms \
          -I$(INCLUDE_DIR)/imaging \
@@ -25,7 +25,7 @@ CFLAGS=-O3 -fopenmp -pthread -fPIC $(INCLUDES)
 
 LDFLAGS=-shared $(LIBS)
 
-LDLIBS=-lpython3.6m -lm -lrt
+LDLIBS=-lpython3.5m -lm -lrt
 # $(LIB_DIR)/cblas_LINUX.a $(LIB_DIR)/blas_LINUX.a \
 
 
