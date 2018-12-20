@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <getopt.h>
 
 #include "params.h"
 #include "utils.h"
@@ -38,5 +39,34 @@ void test_params(string &data_dir, int nrows, int n_unique) {
 
 int main(int argc, char *argv[]) {
     string data_dir = "./data";
-    test_params(data_dir, 479325, 7);
+    int nrows = 0;
+    double low = 0.0;
+    double high = 0.0;
+    int len = 0;
+
+    int c;
+    while (true) {
+        int option_index = 0;
+        static struct option long_options[] = {
+            {"data_dir", required_argument, 0, 1},
+            {"nrows", required_argument, 0, 2},
+            {"low", required_argument, 0, 3},
+            {"high", required_argument, 0, 4},
+            {"len", required_argument, 0, 5}
+        };
+
+        c = getopt_long(argc, argv, "", long_options, &option_index);
+        if (c == -1) break;
+
+        switch (c) {
+            case 1: data_dir = string(optarg); break;
+            case 2: nrows = atoi(optarg); break;
+            case 3: low = atof(optarg); break;
+            case 4: high = atof(optarg); break;
+            case 5: len = atoi(optarg); break;
+            default: cout << "Wrong options." << endl; break;
+        }
+    }
+
+    test_params(data_dir, nrows, len);
 }

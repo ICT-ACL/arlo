@@ -4,13 +4,13 @@ sys.path.append('../../arl-python')
 
 import numpy as np
 import time
+import argparse
 
 from arl.fourier_transforms.convolutional_gridding import convolutional_grid, convolutional_degrid
 from utils import *
 
-def test_degrid(data_dir):
-    vshape, gshape, kshape = load_shape(os.path.join(data_dir, 'shapes.txt'))
 
+def test_degrid(data_dir, vshape, gshape, kshape):
     kernels = []
     for i in range(kshape[0]):
         kernels.append(create_random_data(kshape[1:], 0, 1, 'complex'))
@@ -34,9 +34,7 @@ def test_degrid(data_dir):
     store_data(os.path.join(data_dir, 'vis.dat'), vis)
 
 
-def test_grid(data_dir):
-    vshape, gshape, kshape = load_shape(os.path.join(data_dir, 'shapes.txt'))
-
+def test_grid(data_dir, vshape, gshape, kshape):
     kernels = []
     for i in range(kshape[0]):
         kernels.append(create_random_data(kshape[1:], 0, 1, 'complex'))
@@ -67,10 +65,14 @@ def test_grid(data_dir):
 
 
 if __name__ == '__main__':
-    np.random.seed(0)
-    data_dir = './data/'
+    # np.random.seed(0)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--mode', type=str, default='grid')
+    parser.add_argument('--data_dir', type=str, default='./data')
+    parser.add_argument('--vshape', type=str, default='0,0')
+    parser.add_argument('--gshape', type=str, default='0,0,0,0')
+    parser.add_argument('--kshape', type=str, default='0,0,0,0,0')
+    args = parser.parse_args()
 
-    if sys.argv[1] == 'degrid':
-        test_degrid(data_dir)
-    elif sys.argv[1] == 'grid':
-        test_grid(data_dir)
+    test = {'grid': test_grid, 'degrid': test_degrid}
+    test[args.mode](args.data_dir, str2arr(args.vshape), str2arr(args.gshape), str2arr(args.kshape))

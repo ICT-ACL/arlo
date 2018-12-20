@@ -4,6 +4,7 @@ sys.path.append('../../arl-python')
 
 import numpy as np
 import time
+import argparse
 
 from arl.image.cleaners import *
 from utils import *
@@ -97,17 +98,15 @@ def msmfsclean_simplify(dirty, psf, window, gain, thresh, niter, scales, fracthr
 
 
 
-def test_cleaners(data_dir):
+def test_cleaners(data_dir, niter, gain, thresh, fracthresh, nscales, nmoments, nx, ny):
 
-    nscales, nmoments, nx, ny = 4, 3, 512, 512
-    dirty = create_random_data((nmoments, ny, nx), -1000, 1000, 'float')
+    dirty = create_random_data((nmoments, ny, nx), -100, 100, 'float')
     psf = create_random_data((nmoments*2, ny, nx), -5, 5, 'float')
 
     m_model, residual, pscalestack, smresidual0, \
     ssmmpsf, hsmmpsf, ihsmmpsf, ldirty, psf \
-        = msmfsclean_simplify(dirty, psf, None, gain=0.7, thresh=0.01, niter=2, scales=[0, 3, 10, 30],\
-                        fracthresh=0.001, findpeak='ARL')
-
+        = msmfsclean_simplify(dirty, psf, None, gain=gain, thresh=thresh, niter=niter, scales=[0, 3, 10, 30],\
+                        fracthresh=fracthresh, findpeak='ARL')
 
     store_data(os.path.join(data_dir, 'm_model.dat'), m_model)
     store_data(os.path.join(data_dir, 'residual.dat'), residual)
@@ -120,9 +119,20 @@ def test_cleaners(data_dir):
     store_data(os.path.join(data_dir, 'psf.dat'), psf)
 
 
-
 if __name__ == '__main__':
     np.random.seed(0)
-    data_dir = './data/'
 
-    test_cleaners(data_dir)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data_dir', type=str, default='./data')
+    parser.add_argument('--niter', type=int, default=0)
+    parser.add_argument('--gain', type=float, default=0.0)
+    parser.add_argument('--thresh', type=float, default=0.0)
+    parser.add_argument('--fracthresh', type=float, default=0.0)
+    parser.add_argument('--nscales', type=int, default=0)
+    parser.add_argument('--nmoments', type=int, default=0)
+    parser.add_argument('--nx', type=int, default=0)
+    parser.add_argument('--ny', type=int, default=0)
+    args = parser.parse_args()
+
+    test_cleaners(args.data_dir, args.niter, args.gain, args.thresh, args.fracthresh, \
+                  args.nscales, args.nmoments, args.nx, args.ny)

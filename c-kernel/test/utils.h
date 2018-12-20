@@ -12,6 +12,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <vector>
 
 typedef double complex complex_t;
 
@@ -53,6 +54,19 @@ void load_data(string filepath, T *arr, const int n) {
     fin.close();
 }
 
+vector<int> str2arr(string &str) {
+    vector<int> arr;
+    stringstream sin(str);
+    string item;
+    int num;
+    while (getline(sin, item, ',')) {
+        stringstream ss(item);
+        ss >> num;
+        arr.push_back(num);
+    }
+    return arr;
+}
+
 
 template <typename T>
 void print_arr(T *arr, int len) {
@@ -77,6 +91,25 @@ double diff(T *a, T *b, int n) {
         err = max(err, cabs(a[i] - b[i]));
     }
     return err;
+}
+
+template<typename T>
+double diff_relative(T *a, T *b, int n) {
+    double err = 0.0, b_max = 0.0;
+    for (int i = 0; i < n; i++) {
+        err = max(err, cabs(a[i] - b[i]));
+        b_max = max(b_max, cabs(b[i]));
+    }
+    return err / b_max;
+}
+
+template<typename T>
+T prod(vector<T> &arr) {
+    T res = 1;
+    for (int i = 0; i < arr.size(); i++) {
+        res *= arr[i];
+    }
+    return res;
 }
 
 

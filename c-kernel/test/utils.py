@@ -34,3 +34,7 @@ def store_data(filepath, arr):
     elif dtype.startswith('complex'):
         dtype = 'complex128'
     arr.ravel().astype(dtype).tofile(filepath)
+
+
+def str2arr(string):
+    return tuple(int(num) for num in string.split(','))
