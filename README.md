@@ -36,4 +36,12 @@ further optimization.
 
 
 ## Test
-`c-kernel/test` is code to test and verify correctness of the optimized C++ code.  
+`c-kernel/test` is code to test and verify correctness of the optimized C++ code.
+1. Compile code in `src` first and move the `.so` libs to corresponding directories to make sure some python modules imported correctly.
+2. Run scripts to verify the results of original python code and optimized c++ code.
+    - For all tests, run `sh test_all.sh`.
+    - For params, run `sh test_params.sh`.
+    - For gridding, run `sh test_gridding.sh`.
+    - For fft, run `sh test_fft.sh`.  
+    - For cleaners, run `sh test_cleaners.sh`.
+3. The data in test code is randomly created.
